@@ -1,22 +1,54 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCharacters } from "../redux/Character/characterSlice";
+import { CharacterItem } from "../components";
 
 function Characters() {
+  const dispatch = useDispatch();
+  const characters = useSelector((state) => state.character);
+  const [page, setPage] = useState(0);
+
+  //fetch Characters
+  useEffect(() => {
+    if (characters.status === "idle") {
+      dispatch(fetchCharacters({ limit: characters.limit, offset: 0 }));
+    }
+  }, [characters.limit, characters.status, dispatch, page]);
+
+  if (characters.status === "failed") {
+    return characters.error;
+  }
+
+  const handleNextData = () => {
+    setPage(page + 1);
+    const offset = characters.limit * (page + 1);
+    dispatch(fetchCharacters({ limit: characters.limit, offset }));
+  };
+
   return (
     <div className="row mt-2">
-      <div className="col-3 mb-2">
-        <Link to="/character/1" className="characters">
-          <div className="card">
-            <img
-              src="https://vignette.wikia.nocookie.net/breakingbad/images/1/16/Saul_Goodman.jpg/revision/latest?cb=20120704065846"
-              className="card-img-top"
-              alt="character_photo"
-            />
-            <div className="card-body">
-              <p className="card-text text-center">Saul Goodman</p>
+      {characters.items.length > 0 &&
+        characters.items.map((item) => (
+          <CharacterItem key={item.char_id} character={item} />
+        ))}
+
+      <div className="text-center">
+        {characters.status === "loading" && (
+          <div className="d-flex justify-content-center">
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
             </div>
           </div>
-        </Link>
+        )}
+        {characters.hasNextPage && characters.status !== "loading" && (
+          <button
+            onClick={handleNextData}
+            type="button"
+            className="btn btn-light mb-3"
+          >
+            Next Characters
+          </button>
+        )}
       </div>
     </div>
   );
