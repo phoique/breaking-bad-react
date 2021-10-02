@@ -4,10 +4,12 @@ import { Provider } from "react-redux";
 
 // import reducer
 import characterReducer from "./Character/characterSlice";
+import quoteSlice from "./Quote/quoteSlice";
 
 const store = configureStore({
   reducer: {
-    character: characterReducer
+    character: characterReducer,
+    quote: quoteSlice,
   },
 });
 
