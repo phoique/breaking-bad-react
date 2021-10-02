@@ -1,0 +1,8 @@
+.quotes p, .character-detail p {
+  margin: 0;
+}
+
+.characters {
+  color: #000;
+  text-decoration: none;
+}
