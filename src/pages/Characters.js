@@ -1,27 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCharacters } from "../redux/Character/characterSlice";
+import {
+  fetchCharacters,
+  nextPageNumber,
+} from "../redux/Character/characterSlice";
 import { CharacterItem } from "../components";
 
 function Characters() {
   const dispatch = useDispatch();
   const characters = useSelector((state) => state.character);
-  const [page, setPage] = useState(0);
 
   //fetch Characters
   useEffect(() => {
     if (characters.status === "idle") {
       dispatch(fetchCharacters({ limit: characters.limit, offset: 0 }));
     }
-  }, [characters.limit, characters.status, dispatch, page]);
+  }, [characters.limit, characters.status, dispatch]);
 
   if (characters.status === "failed") {
     return characters.error;
   }
 
   const handleNextData = () => {
-    setPage(page + 1);
-    const offset = characters.limit * (page + 1);
+    const nextPage = characters.currentPage + 1;
+    dispatch(nextPageNumber(nextPage));
+    const offset = characters.limit * nextPage;
     dispatch(fetchCharacters({ limit: characters.limit, offset }));
   };
 

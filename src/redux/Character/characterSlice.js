@@ -1,15 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../services";
 
-export const fetchCharacters = createAsyncThunk(
+const fetchCharacters = createAsyncThunk(
   "/characters/fetchCharacters",
   async (params) => {
-    const response = await instance.get("/characters", {params});
+    const response = await instance.get("/characters", { params });
     return response.data;
   }
 );
 
-export const fetchCharacterById = createAsyncThunk(
+const fetchCharacterById = createAsyncThunk(
   "/characters/fetchCharacterById",
   async (id) => {
     const response = await instance.get(`/characters/${id}`);
@@ -23,27 +23,31 @@ const initialState = {
   limit: 16,
   error: null,
   hasNextPage: null,
+  currentPage: 0,
   detail: {
     status: "idle",
     item: [],
     error: null,
-  }
+  },
 };
 
-export const characterSlice = createSlice({
+const characterSlice = createSlice({
   name: "character",
   initialState,
-  reducers: {},
+  reducers: {
+    nextPageNumber: (state, action) => {
+      state.currentPage = action.payload;
+    },
+  },
   extraReducers: {
     // Fetch all characters
     [fetchCharacters.pending]: (state, action) => {
       state.status = "loading";
     },
     [fetchCharacters.fulfilled]: (state, action) => {
-      if(action.payload.length < state.limit) {
+      if (action.payload.length < state.limit) {
         state.hasNextPage = false;
-      }
-      else {
+      } else {
         state.hasNextPage = true;
       }
       state.status = "succeeded";
@@ -60,10 +64,9 @@ export const characterSlice = createSlice({
     },
     [fetchCharacterById.fulfilled]: (state, action) => {
       state.detail.status = "succeeded";
-      if(action.payload && action.payload.length > 0) {
+      if (action.payload && action.payload.length > 0) {
         state.detail.item = action.payload[0];
       }
-      
     },
     [fetchCharacterById.rejected]: (state, action) => {
       state.detail.status = "failed";
@@ -72,6 +75,8 @@ export const characterSlice = createSlice({
   },
 });
 
-//export const {} = characterSlice.actions;
+const { nextPageNumber } = characterSlice.actions;
+
+export { nextPageNumber, characterSlice, fetchCharacterById, fetchCharacters };
 
 export default characterSlice.reducer;
