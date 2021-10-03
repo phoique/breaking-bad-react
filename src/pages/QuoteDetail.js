@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchQuoteById, quoteSelectors } from "../redux/Quote/quoteSlice";
+import { fetchQuoteById, quoteSelectors } from "../redux/Quote";
 
 function QuoteDetail() {
   const { id } = useParams();

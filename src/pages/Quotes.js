@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchQuotes } from "../redux/Quote/quoteSlice";
+import { fetchQuotes } from "../redux/Quote";
 
 function Quotes(props) {
   const dispatch = useDispatch();

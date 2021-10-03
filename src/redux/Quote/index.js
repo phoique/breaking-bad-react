@@ -1,27 +1,11 @@
-import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
-import { instance } from "../../services";
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
+import { fetchQuotes, fetchQuoteById } from "./fetch";
 
-export const fetchQuotes = createAsyncThunk(
-  "/quote/fetchQuotes",
-  async () => {
-    const response = await instance.get("/quotes");
-    return response.data;
-  }
-);
-
-export const fetchQuoteById = createAsyncThunk(
-  "/quote/fetchQuoteById",
-  async (id) => {
-    const response = await instance.get(`/quotes/${id}`);
-    return response.data;
-  }
-);
-
-export const quoteAdapter = createEntityAdapter({
+const quoteAdapter = createEntityAdapter({
   selectId: (quote) => quote.quote_id,
 });
 
-export const quoteSelectors = quoteAdapter.getSelectors((state) => state.quote)
+const quoteSelectors = quoteAdapter.getSelectors((state) => state.quote);
 
 const initialState = quoteAdapter.getInitialState({
   status: "idle",
@@ -35,12 +19,10 @@ const initialState = quoteAdapter.getInitialState({
   },
 });
 
-export const characterSlice = createSlice({
+const characterSlice = createSlice({
   name: "character",
   initialState,
-  reducers: {
-    findQuote: quoteAdapter.selectId
-  },
+  reducers: {},
   extraReducers: {
     // Fetch all quotes
     [fetchQuotes.pending]: (state, action) => {
@@ -73,6 +55,14 @@ export const characterSlice = createSlice({
   },
 });
 
-export const { findQuote } = characterSlice.actions;
+//export const {} = characterSlice.actions;
+
+export {
+  characterSlice,
+  quoteSelectors,
+  quoteAdapter,
+  fetchQuotes,
+  fetchQuoteById,
+};
 
 export default characterSlice.reducer;
