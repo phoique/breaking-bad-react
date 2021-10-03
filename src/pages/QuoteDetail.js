@@ -1,37 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchQuoteById } from "../redux/Quote/quoteSlice";
+import { fetchQuoteById, quoteSelectors } from "../redux/Quote/quoteSlice";
 
 function QuoteDetail() {
-  const {id} = useParams();
+  const { id } = useParams();
   const dispatch = useDispatch();
-  const quotes = useSelector(state => state.quote);
+  const quotes = useSelector((state) => state.quote);
+  const findCacheData = useSelector((state) =>
+    quoteSelectors.selectById(state, id)
+  );
   const [quoteCache, setQuoteCache] = useState();
 
   useEffect(() => {
-    if(quotes.items.length > 0) {
-      const findData = quotes.items.find(item => item.quote_id === Number(id));
-      setQuoteCache(findData);
-    }
-    else {
+    if (findCacheData) {
+      setQuoteCache(findCacheData);
+    } else {
       dispatch(fetchQuoteById(id));
     }
-  }, [dispatch, id, quotes.items]);
+  }, [dispatch, findCacheData, id, quotes.items]);
 
   return (
     <div className="quote-detail">
       <div className="info">
         <p>
-          <strong>Quote: </strong> {quoteCache?.quote || quotes?.detail?.item?.quote}
+          <strong>Quote: </strong>{" "}
+          {quoteCache?.quote || quotes?.detail?.item?.quote}
         </p>
 
         <p>
-          <strong>Author: </strong>{quoteCache?.author || quotes?.detail?.item?.author}
+          <strong>Author: </strong>
+          {quoteCache?.author || quotes?.detail?.item?.author}
         </p>
 
         <p>
-          <strong>Series: </strong> {quoteCache?.series || quotes?.detail?.item?.series}
+          <strong>Series: </strong>{" "}
+          {quoteCache?.series || quotes?.detail?.item?.series}
         </p>
       </div>
     </div>
