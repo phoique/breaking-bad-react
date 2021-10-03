@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCharacterById } from "../redux/Character/characterSlice";
+import { Loading } from "../components";
 
 function CharacterDetail() {
   const { id } = useParams();
@@ -24,7 +25,7 @@ function CharacterDetail() {
   }, [dispatch, id, state.items]);
 
   if (state.detail.status === "loading") {
-    return "Loading...";
+    return <Loading center={false} />;
   }
 
   return (

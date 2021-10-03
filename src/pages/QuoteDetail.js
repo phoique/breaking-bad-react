@@ -24,18 +24,30 @@ function QuoteDetail() {
     <div className="quote-detail">
       <div className="info">
         <p>
-          <strong>Quote: </strong>{" "}
-          {quoteCache?.quote || quotes?.detail?.item?.quote}
+          <strong>Quote: </strong>
+          {quotes.detail.status === "loading" ? (
+            <span className="placeholder col-4"></span>
+          ) : (
+            quoteCache?.quote || quotes?.detail?.item?.quote
+          )}
         </p>
 
         <p>
           <strong>Author: </strong>
-          {quoteCache?.author || quotes?.detail?.item?.author}
+          {quotes.detail.status === "loading" ? (
+            <span className="placeholder col-2"></span>
+          ) : (
+            quoteCache?.author || quotes?.detail?.item?.author
+          )}
         </p>
 
         <p>
-          <strong>Series: </strong>{" "}
-          {quoteCache?.series || quotes?.detail?.item?.series}
+          <strong>Series: </strong>
+          {quotes.detail.status === "loading" ? (
+            <span className="placeholder col-2"></span>
+          ) : (
+            quoteCache?.series || quotes?.detail?.item?.series
+          )}
         </p>
       </div>
     </div>

@@ -4,7 +4,7 @@ import {
   fetchCharacters,
   nextPageNumber,
 } from "../redux/Character/characterSlice";
-import { CharacterItem } from "../components";
+import { CharacterItem, Loading } from "../components";
 
 function Characters() {
   const dispatch = useDispatch();
@@ -37,11 +37,7 @@ function Characters() {
 
       <div className="text-center">
         {characters.status === "loading" && (
-          <div className="d-flex justify-content-center">
-            <div className="spinner-border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          </div>
+          <Loading />
         )}
         {characters.hasNextPage && characters.status !== "loading" && (
           <button

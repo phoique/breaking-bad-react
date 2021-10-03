@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchQuotes } from "../redux/Quote";
+import { Loading } from "../components";
 
 function Quotes(props) {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ function Quotes(props) {
   }, [dispatch, quotes.status]);
 
   if (quotes.status === "loading") {
-    return "Loading...";
+    return <Loading />;
   }
 
   return (
