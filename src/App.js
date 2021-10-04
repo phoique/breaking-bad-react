@@ -1,16 +1,23 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 // import Components
 import { Menu } from "./components";
 
 // import Pages
-import { Characters, CharacterDetail, Home, Quotes, QuoteDetail, NotFound } from "./pages";
+import {
+  Characters,
+  CharacterDetail,
+  Home,
+  Quotes,
+  QuoteDetail,
+  NotFound,
+} from "./pages";
 
 function App() {
   return (
     <div className="container">
-      <Router>
+      <Router basename={process.env.REACT_APP_BASENAME}>
         <Menu />
         <Switch>
           <Route path="/" exact component={Home} />
