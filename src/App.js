@@ -17,7 +17,7 @@ import {
 function App() {
   return (
     <div className="container">
-      <Router basename={process.env.REACT_APP_BASENAME}>
+      <Router>
         <Menu />
         <Switch>
           <Route path="/" exact component={Home} />
