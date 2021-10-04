@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchCharacters,
@@ -9,6 +9,26 @@ import { CharacterItem, Loading } from "../components";
 function Characters() {
   const dispatch = useDispatch();
   const characters = useSelector((state) => state.character);
+  const observer = useRef();
+
+  const lastItemRef = useCallback(
+    (node) => {
+      if (characters.status === "loading") return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && characters.hasNextPage) {
+          const nextPage = characters.currentPage + 1;
+          dispatch(nextPageNumber(nextPage));
+          const offset = characters.limit * nextPage;
+          dispatch(fetchCharacters({ limit: characters.limit, offset }));
+        }
+      });
+
+      if (node) observer.current.observe(node);
+    },
+    [characters, dispatch]
+  );
 
   //fetch Characters
   useEffect(() => {
@@ -21,33 +41,19 @@ function Characters() {
     return characters.error;
   }
 
-  const handleNextData = () => {
-    const nextPage = characters.currentPage + 1;
-    dispatch(nextPageNumber(nextPage));
-    const offset = characters.limit * nextPage;
-    dispatch(fetchCharacters({ limit: characters.limit, offset }));
-  };
-
   return (
     <div className="row mt-2">
       {characters.items.length > 0 &&
         characters.items.map((item) => (
-          <CharacterItem key={item.char_id} character={item} />
+          <CharacterItem
+            lastItemRef={lastItemRef}
+            key={item.char_id}
+            character={item}
+          />
         ))}
 
       <div className="text-center">
-        {characters.status === "loading" && (
-          <Loading />
-        )}
-        {characters.hasNextPage && characters.status !== "loading" && (
-          <button
-            onClick={handleNextData}
-            type="button"
-            className="btn btn-light mb-3"
-          >
-            Next Characters
-          </button>
-        )}
+        {characters.status === "loading" && <Loading />}
       </div>
     </div>
   );
