@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/styles.css"],"names":[],"mappings":"AAAA,8BACE,QACF,CAEA,YACE,UAAW,CACX,oBACF","file":"main.4d8bd28c.chunk.css","sourcesContent":[".quotes p, .character-detail p {\r\n  margin: 0;\r\n}\r\n\r\n.characters {\r\n  color: #000;\r\n  text-decoration: none;\r\n}"]}
