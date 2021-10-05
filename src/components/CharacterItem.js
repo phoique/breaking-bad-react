@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function CharacterItem({ character, lastItemRef }) {
   return (
-    <div className="col-3 mb-2" ref={lastItemRef}>
+    <div className="col-6 col-md-3 col-lg-2 mb-2" ref={lastItemRef}>
       <Link to={"/character/" + character.char_id} className="characters">
         <div className="card">
           <img

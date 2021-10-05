@@ -20,7 +20,7 @@ function Quotes(props) {
 
   return (
     <div className="row mt-2">
-      <div className="list-group col-6">
+      <div className="list-group col-12 col-md-8 col-lg-6">
         {quotes.items.length > 0 &&
           quotes.items.map((item) => (
             <Link
