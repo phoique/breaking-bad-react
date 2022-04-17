@@ -14,7 +14,7 @@ import {
   NotFound,
 } from "./pages";
 
-function App() {
+const App = () => {
   return (
     <div className="container">
       <BrowserRouter>
@@ -30,6 +30,6 @@ function App() {
       </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;

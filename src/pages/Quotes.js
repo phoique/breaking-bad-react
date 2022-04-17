@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchQuotes } from "../redux/Quote";
 import { Loading } from "../components";
 
-function Quotes(props) {
+const Quotes = (props) => {
   const dispatch = useDispatch();
   const quotes = useSelector((state) => state.quote);
 
@@ -34,6 +34,6 @@ function Quotes(props) {
       </div>
     </div>
   );
-}
+};
 
 export default Quotes;

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchQuoteById, quoteSelectors } from "../redux/Quote";
 
-function QuoteDetail() {
+const QuoteDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const quotes = useSelector((state) => state.quote);
@@ -26,7 +26,7 @@ function QuoteDetail() {
         <p>
           <strong>Quote: </strong>
           {quotes.detail.status === "loading" ? (
-            <span className="placeholder col-4"></span>
+            <span className="placeholder col-4" />
           ) : (
             quoteCache?.quote || quotes?.detail?.item?.quote
           )}
@@ -35,7 +35,7 @@ function QuoteDetail() {
         <p>
           <strong>Author: </strong>
           {quotes.detail.status === "loading" ? (
-            <span className="placeholder col-2"></span>
+            <span className="placeholder col-2" />
           ) : (
             quoteCache?.author || quotes?.detail?.item?.author
           )}
@@ -44,7 +44,7 @@ function QuoteDetail() {
         <p>
           <strong>Series: </strong>
           {quotes.detail.status === "loading" ? (
-            <span className="placeholder col-2"></span>
+            <span className="placeholder col-2" />
           ) : (
             quoteCache?.series || quotes?.detail?.item?.series
           )}
@@ -52,6 +52,6 @@ function QuoteDetail() {
       </div>
     </div>
   );
-}
+};
 
 export default QuoteDetail;

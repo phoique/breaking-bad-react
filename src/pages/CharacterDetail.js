@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchCharacterById } from "../redux/Character/characterSlice";
 import { Loading } from "../components";
 
-function CharacterDetail() {
+const CharacterDetail = () => {
   const { id } = useParams();
   const state = useSelector((state) => state.character);
   const dispatch = useDispatch();
@@ -18,9 +18,8 @@ function CharacterDetail() {
       );
       if (findCacheData) {
         return setDetail(findCacheData);
-      } else {
-        dispatch(fetchCharacterById(id));
       }
+      dispatch(fetchCharacterById(id));
     }
   }, [dispatch, id, state.items]);
 
@@ -54,6 +53,6 @@ function CharacterDetail() {
       </div>
     </div>
   );
-}
+};
 
 export default CharacterDetail;

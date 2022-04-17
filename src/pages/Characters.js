@@ -6,7 +6,7 @@ import {
 } from "../redux/Character/characterSlice";
 import { CharacterItem, Loading } from "../components";
 
-function Characters() {
+const Characters = () => {
   const dispatch = useDispatch();
   const characters = useSelector((state) => state.character);
   const observer = useRef();
@@ -30,7 +30,7 @@ function Characters() {
     [characters, dispatch]
   );
 
-  //fetch Characters
+  // fetch Characters
   useEffect(() => {
     if (characters.status === "idle") {
       dispatch(fetchCharacters({ limit: characters.limit, offset: 0 }));
@@ -57,6 +57,6 @@ function Characters() {
       </div>
     </div>
   );
-}
+};
 
 export default Characters;
