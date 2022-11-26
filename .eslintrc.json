@@ -16,7 +16,7 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": 2022,
+    "ecmaVersion": 12,
     "sourceType": "module",
     "allowImportExportEverywhere": true
   },
@@ -37,7 +37,6 @@
     "no-param-reassign": "off",
     "no-empty": "warn",
     "import/no-extraneous-dependencies": "warn",
-    "react/jsx-props-no-spreading": "warn",
     "react/no-unescaped-entities": ["error", { "forbid": [">", "}"] }],
     "jsx-a11y/label-has-associated-control": [
       "warn",
@@ -57,7 +56,15 @@
     "react/no-arrow-function-lifecycle": "off",
     "react/no-invalid-html-attribute": "off",
     "react/no-unused-class-component-methods": "off",
-    "import/no-cycle": "off",
-    "react/prop-types": 0
+    "import/prefer-default-export": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/prop-types": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      }
+    }
   }
 }
