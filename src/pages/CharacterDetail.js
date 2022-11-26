@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchCharacterById } from "../redux/Character/characterSlice";
+import { fetchCharacterById } from "../features/Character/characterSlice";
 import { Loading } from "../components";
 
 const CharacterDetail = () => {
   const { id } = useParams();
-  const state = useSelector((state) => state.character);
+  const state = useSelector((s) => s.character);
   const dispatch = useDispatch();
 
   const [detail, setDetail] = useState();
@@ -17,7 +17,7 @@ const CharacterDetail = () => {
         (item) => item.char_id === Number(id)
       );
       if (findCacheData) {
-        return setDetail(findCacheData);
+        setDetail(findCacheData);
       }
       dispatch(fetchCharacterById(id));
     }

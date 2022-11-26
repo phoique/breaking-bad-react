@@ -41,7 +41,7 @@ const characterSlice = createSlice({
   },
   extraReducers: {
     // Fetch all characters
-    [fetchCharacters.pending]: (state, action) => {
+    [fetchCharacters.pending]: (state) => {
       state.status = "loading";
     },
     [fetchCharacters.fulfilled]: (state, action) => {
@@ -59,13 +59,13 @@ const characterSlice = createSlice({
     },
 
     // Fetch character detail
-    [fetchCharacterById.pending]: (state, action) => {
+    [fetchCharacterById.pending]: (state) => {
       state.detail.status = "loading";
     },
     [fetchCharacterById.fulfilled]: (state, action) => {
       state.detail.status = "succeeded";
       if (action.payload && action.payload.length > 0) {
-        state.detail.item = action.payload[0];
+        state.detail.item = action.payload;
       }
     },
     [fetchCharacterById.rejected]: (state, action) => {

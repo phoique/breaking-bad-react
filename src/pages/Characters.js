@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { CharacterItem, Loading } from "components";
 import {
   fetchCharacters,
   nextPageNumber,
-} from "../redux/Character/characterSlice";
-import { CharacterItem, Loading } from "../components";
+} from "features/Character/characterSlice";
 
 const Characters = () => {
   const dispatch = useDispatch();

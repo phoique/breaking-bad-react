@@ -25,7 +25,7 @@ const characterSlice = createSlice({
   reducers: {},
   extraReducers: {
     // Fetch all quotes
-    [fetchQuotes.pending]: (state, action) => {
+    [fetchQuotes.pending]: (state) => {
       state.status = "loading";
     },
     [fetchQuotes.fulfilled]: (state, action) => {
@@ -39,13 +39,13 @@ const characterSlice = createSlice({
     },
 
     // Fetch quote detail
-    [fetchQuoteById.pending]: (state, action) => {
+    [fetchQuoteById.pending]: (state) => {
       state.detail.status = "loading";
     },
     [fetchQuoteById.fulfilled]: (state, action) => {
       state.detail.status = "succeeded";
       if (action.payload && action.payload.length > 0) {
-        state.detail.item = action.payload[0];
+        state.detail.item = action.payload;
       }
     },
     [fetchQuoteById.rejected]: (state, action) => {

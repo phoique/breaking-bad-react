@@ -6,13 +6,15 @@ import { Provider } from "react-redux";
 import characterReducer from "./Character/characterSlice";
 import quoteSlice from "./Quote";
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     character: characterReducer,
     quote: quoteSlice,
   },
 });
 
-export default function Store({ children }) {
+const Store = ({ children }) => {
   return <Provider store={store}>{children}</Provider>;
-}
+};
+
+export default Store;

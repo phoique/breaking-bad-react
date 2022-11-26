@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchQuotes } from "../redux/Quote";
+import { fetchQuotes } from "../features/Quote";
 import { Loading } from "../components";
 
-const Quotes = (props) => {
+const Quotes = () => {
   const dispatch = useDispatch();
   const quotes = useSelector((state) => state.quote);
 

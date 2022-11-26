@@ -1,13 +1,4 @@
-import { breakingBadApi } from "./index";
-
-function providesTags(result, type) {
-  return result?.data?.length
-    ? [
-        ...result.data.map((quote) => ({ type, id: quote.quote_id })),
-        { type, id: "LIST" },
-      ]
-    : [{ type, id: "LIST" }];
-}
+import breakingBadApi from "./breakingBadApi";
 
 const quoteServices = breakingBadApi.injectEndpoints({
   endpoints: (build) => ({
@@ -18,7 +9,8 @@ const quoteServices = breakingBadApi.injectEndpoints({
         method: "GET",
         params,
       }),
-      providesTags: (result) => providesTags(result, "qutoes"),
+      providesTags: (result) =>
+        breakingBadApi.providesTags(result, "qutoes", "quote_id"),
     }),
     // quote detail
     quoteDetail: build.query({
@@ -26,7 +18,8 @@ const quoteServices = breakingBadApi.injectEndpoints({
         url: `/quote/${id}`,
         method: "GET",
       }),
-      providesTags: (result) => [{ type: "quote", id: result[0].quote_id }],
+      providesTags: (result) =>
+        breakingBadApi.providesTags(result[0], "qutoes", "quote_id"),
     }),
   }),
 });

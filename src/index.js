@@ -1,6 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import Store from "./redux/Store";
+import { Store } from "features";
 import App from "./App";
 import "./styles.css";
 
